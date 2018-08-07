@@ -27,19 +27,16 @@ Python script to scan after C&C Servers running Poison Ivy,
 which is vulnerable to a Remote Code Execution bug. Exploit-DB: 39907 & 19613
 '''
 
-#TODO: Parse target Single IP
-#TODO: Parse Target CIDR Range
-#TODO: Parse targets from file
 #TODO: Parse Port range
 #TODO: Printing of data stdout
 #TODO: write to file?
 
 import argparse
-from netaddr import IPNetwork
+import iptools
 
 def createIpRange(cidr): #NOTE: 192.168.0.0/16 = 0.5MB ram
     range = []
-    for ip in IPNetwork(cidr):
+    for ip in iptools.IpRange(cidr):
         range.append(ip)
     return range
 
@@ -52,7 +49,10 @@ def createPortRange(range):
     return ports
 
 def ivyScan(ip,port):
-    pass
+    return
+
+def scan(ipList, portList):
+    return
 
 def initArgParser():
     parser = argparse.ArgumentParser(prog="PIvyScanner.py", usage='./%(prog)s [options]', description=prog_desc )
@@ -72,16 +72,16 @@ def main():
         print("Please specify an IP to scan")
         return
     elif(args.ip != None):
-        pass
+        IPs.append(args.ip)
     elif(args.range != None):
-        pass
+        IPs = createIpRange(args.range)
     elif(args.file != None):
-        pass
+        with open(args.file) as targetFile:
+            IPs = [line.rstrip() for line in targetFile]
 
-    
-    for ip in IPs:
+    for target in IPs:
         for port in ports:
-            print("Scanning: %s:%s" % ip, str(port) )
+            print(target+":"+str(port))
 
     return
 
