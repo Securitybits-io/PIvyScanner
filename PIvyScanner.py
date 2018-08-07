@@ -29,6 +29,8 @@ SOFTWARE.
 #TODO: write to file?
 
 import argparse
+import netaddr
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -38,3 +40,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+print("it works!")
